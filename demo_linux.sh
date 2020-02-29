@@ -17,17 +17,18 @@ cecho() {
   echo "$text"
 }
 
-RGBD="/home/chao/dev/data/bundlefusion/copyroom/copyroom/"
+RGBD="//Users/james/code/office3/"
 # RGBD="/d/3drecon/data/3dlite/apt/apt-rgbd-render/"
 # RGBD="/d/3drecon/data/bundlefusion/copyroom/copyroom/"
 # OUTPUT="/d/3drecon/data/bundlefusion/copyroom/copyroom-plane-temp/"
 # ORIGINALRGBD="/d/3drecon/data/bundlefusion/copyroom/copyroom/"
 # RGBD="/media/chao/768ACA058AC9C23B/3drecon/data/bundlefusion/office0/office0_temp/office0_temp-original/"
-OUTPUT="/home/chao/dev/data/bundlefusion/copyroom/planes-all-frames"
+OUTPUT="//Users/james/code/data"
 if [ ! -d "$OUTPUT" ]; then
   mkdir $OUTPUT
 fi
 code="./build/RGBDPlaneDetection"
+pose="./RGBDPlaneDetection/pose"
 cecho g "input rgbd folder: $RGBD"
 cecho g "output plane folder: $OUTPUT"
 cecho g "RGBDPlaneDetection code: $code"
@@ -35,16 +36,17 @@ cecho g "RGBDPlaneDetection code: $code"
 #     echo $file >> list.txt
 #     python $genply 
 # done
-num=4479
+num=3819
 for i in  $(seq -f "%06g" 0 $num)
 do
 	cecho g "Reading frame $i"
   # $code ${RGBD}frame-$i-color.png ${RGBD}frame-$i-depth.png $OUTPUT
-  $code -o ${RGBD}frame-$i.color.jpg ${RGBD}frame-$i.depth.png $OUTPUT
+  $code  ${RGBD}frame-$i.color.jpg ${RGBD}frame-$i.depth.png $OUTPUT
   # $code -o ${RGBD}frame-$i.rendered-color.png ${RGBD}frame-$i.rendered-depth.png $OUTPUT
 	# $code -o ${RGBD}frame-$i-color.png ${RGBD}frame-$i-depth.png
-  # cecho g "Copying pose file of frame $i"
-  # cp ${RGBD}frame-$i.pose.txt ${OUTPUT}frame-$i-pose.txt
+  #echo g "Copying pose file of frame $i"
+ #cp ${RGBD}frame-$i.pose.txt ${OUTPUT}frame-$i-pose.txt
+ #$pose ${RGBD}frame-$i.pose.txt
 done
 
 
